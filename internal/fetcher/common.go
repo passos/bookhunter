@@ -41,7 +41,7 @@ type Config struct {
 	RateLimit     int           // Request per minute for a thread.
 	Retry         int           // The retry times for a failed download.
 	SkipError     bool          // Continue to download the next book if the current book download failed.
-	precessFile   string        // Define the download process.
+	processFile   string        // Define the download process.
 
 	// The extra configuration for a custom fetcher services.
 	Properties map[string]string

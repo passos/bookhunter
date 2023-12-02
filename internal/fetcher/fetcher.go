@@ -47,12 +47,12 @@ func (f *fetcher) Download() error {
 	}
 	log.Infof("Successfully query the download content counts: %d", size)
 
-	// Create download progress with ratelimit.
-	if f.precessFile == "" {
-		f.precessFile = defaultProgressFile
+	// Create download progress with rate limit.
+	if f.processFile == "" {
+		f.processFile = defaultProgressFile
 	}
 	rate := f.RateLimit * f.Thread
-	f.progress, err = progress.NewProgress(f.InitialBookID, size, rate, filepath.Join(configPath, f.precessFile))
+	f.progress, err = progress.NewProgress(f.InitialBookID, size, rate, filepath.Join(configPath, f.processFile))
 	if err != nil {
 		return err
 	}

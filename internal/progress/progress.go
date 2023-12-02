@@ -42,7 +42,7 @@ type bitProgress struct {
 	file     *os.File          // The Progress file path for download progress.
 }
 
-// NewProgress Create a storge for save the download progress.
+// NewProgress Create a storage for save the download progress.
 func NewProgress(start, size int64, rate int, path string) (Progress, error) {
 	if start < 1 {
 		return nil, ErrStartBookID
