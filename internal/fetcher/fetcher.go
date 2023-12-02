@@ -129,8 +129,10 @@ thread:
 
 			if err != nil && !errors.Is(err, ErrFileNotExist) {
 				fmt.Printf("Download book id %d failed: %v\n", bookID, err)
-				f.errs <- err
-				break thread
+				if !f.SkipError {
+					f.errs <- err
+					break thread
+				}
 			}
 		}
 

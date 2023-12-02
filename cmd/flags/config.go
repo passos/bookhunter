@@ -23,6 +23,7 @@ var (
 	Proxy      = ""
 	ConfigRoot = ""
 	Retry      = 3
+	SkipError  = true
 
 	// Common download flags.
 
@@ -81,6 +82,7 @@ func NewFetcher(category fetcher.Category, properties map[string]string) (fetche
 		RateLimit:     RateLimit,
 		Properties:    properties,
 		Retry:         Retry,
+		SkipError:     SkipError,
 	})
 }
 
