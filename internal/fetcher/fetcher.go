@@ -1,6 +1,8 @@
 package fetcher
 
 import (
+	"errors"
+	"fmt"
 	"os"
 	"path/filepath"
 	"sync"
@@ -119,8 +121,14 @@ thread:
 
 		// Download the file by formats one by one.
 		for format, share := range formats {
-			err := f.downloadFile(bookID, format, share)
-			if err != nil && err != ErrFileNotExist {
+			retry := 0
+			for err := f.downloadFile(bookID, format, share); err != nil && retry < f.Retry; retry++ {
+				fmt.Printf("Download book id %d failed: %v, retry (%d/%d)\n", bookID, err, retry, f.Retry)
+				err = f.downloadFile(bookID, format, share)
+			}
+
+			if err != nil && !errors.Is(err, ErrFileNotExist) {
+				fmt.Printf("Download book id %d failed: %v\n", bookID, err)
 				f.errs <- err
 				break thread
 			}

@@ -22,6 +22,7 @@ var (
 	UserAgent  = client.DefaultUserAgent
 	Proxy      = ""
 	ConfigRoot = ""
+	Retry      = 3
 
 	// Common download flags.
 
@@ -79,6 +80,7 @@ func NewFetcher(category fetcher.Category, properties map[string]string) (fetche
 		Thread:        Thread,
 		RateLimit:     RateLimit,
 		Properties:    properties,
+		Retry:         Retry,
 	})
 }
 
