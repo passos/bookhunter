@@ -121,8 +121,8 @@ thread:
 
 		// Download the file by formats one by one.
 		for format, share := range formats {
-			retry := 0
-			for err := f.downloadFile(bookID, format, share); err != nil && retry < f.Retry; retry++ {
+			err := f.downloadFile(bookID, format, share)
+			for retry := 0; err != nil && retry < f.Retry; retry++ {
 				fmt.Printf("Download book id %d failed: %v, retry (%d/%d)\n", bookID, err, retry, f.Retry)
 				err = f.downloadFile(bookID, format, share)
 			}
@@ -147,6 +147,7 @@ thread:
 
 // downloadFile in a thread.
 func (f *fetcher) downloadFile(bookID int64, format file.Format, share driver.Share) error {
+	log.Debugf("Start download book id %d, format %s, share %v.", bookID, format, share)
 	// Create the file writer.
 	writer, err := f.creator.NewWriter(bookID, f.progress.Size(), share.FileName, share.SubPath, format, share.Size)
 	if err != nil {
@@ -163,7 +164,7 @@ func (f *fetcher) filterFormats(formats map[file.Format]driver.Share) map[file.F
 	fs := make(map[file.Format]driver.Share)
 	for format, share := range formats {
 		for _, vf := range f.Formats {
-			if format == vf {
+			if format == vf && matchKeywords(share.FileName, f.Keywords) {
 				fs[format] = share
 				break
 			}

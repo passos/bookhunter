@@ -48,5 +48,6 @@ func init() {
 	persistentFlags.StringVarP(&flags.UserAgent, "user-agent", "a", flags.UserAgent, "The request user-agent")
 	persistentFlags.IntVarP(&flags.Retry, "retry", "r", flags.Retry, "The retry times for a failed download")
 	persistentFlags.BoolVarP(&flags.SkipError, "skip-error", "s", flags.SkipError, "Continue to download the next book if the current book download failed")
+	persistentFlags.StringVarP(&flags.Keywords, "keywords", "k", flags.Keywords, "The keywords for books")
 	persistentFlags.BoolVar(&log.EnableDebug, "verbose", false, "Print all the logs for debugging")
 }

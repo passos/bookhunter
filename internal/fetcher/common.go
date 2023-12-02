@@ -32,6 +32,7 @@ const (
 type Config struct {
 	Category      Category      // The identity of the fetcher service.
 	Formats       []file.Format // The formats that the user wants.
+	Keywords      []string      // The keywords that the user wants.
 	Extract       bool          // Extract the archives after download.
 	DownloadPath  string        // The path for storing the file.
 	InitialBookID int64         // The book id start to download.
